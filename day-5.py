@@ -1,5 +1,14 @@
 from playwright.sync_api import sync_playwright
 import time
+from pydantic import BaseModel
+from typing import Optional
+
+class Mobile(BaseModel):
+    name: str
+    price: float
+    brand: str
+    url: str
+    rating: Optional[float] = None
 
 with sync_playwright() as p:
     # Launch browser
@@ -16,10 +25,12 @@ with sync_playwright() as p:
     # Find all product links
     links = page.locator("//div[@class='productBox b-productBox']/a[@class='ga-dataset']")
 
+    mobiles=[]
     # Loop through them and print href attributes
     count = links.count()
     for i in range(count):
         href = links.nth(i).get_attribute("href")
-        print(href)
+        mobiles.append(href)
+
 
     browser.close()
