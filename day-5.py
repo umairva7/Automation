@@ -12,10 +12,16 @@ page=browser.new_page()
 url = "https://priceoye.pk/mobiles"
 page.goto(url)
 
+page=page.locator("xpath=//div[@id='product_list_scroll_identifier']")
 
-print(page.content())
-print(page.title())
-page.screenshot(path='screenshot.png')
+links=page.locator("xpath=//a[@class='ga-dataset']").get_attribute("href")
+
+for link in links:
+    print(link)
+
+
+
+
 
 
 
